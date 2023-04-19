@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilo.css">
+    <title>Cadastro de Pessoa Juridica </title>
+</head>
+<body>
+
+   <div class="box">
+    
+    <div class="form-box">
+    <h2>Criar Conta</h2>
+    <p> Já é membro? <a href="#">Login</a></p>
+    <form action="cadastro.php" method="POST">
+      <div class="input-group">
+      <label for="">Nome:</label>
+      <input type="text" id="nome" name="nome" placeholder="Digite Seu Nome:">
+      </div>
+
+      <div class="input-group">
+      <label for="">Sobrenome:</label>
+      <input type="text" id="sobrenome" name="sobrenome" placeholder="Digite Seu Sobrenome:">
+      </div>
+
+      <div class="input-group">
+      <label for="">email:</label>
+      <input type="e-mail" id="email" name="email" placeholder="Digite Um Email Válido:">
+      </div>
+
+      <div class="input-group w50">
+      <label for="">senha:</label>
+      <input type="password" id="senha" name="senha" placeholder="Digite Uma Senha:">
+      </div>
+
+      <div class="input-group">
+      <label for="">cnpj:</label>
+      <input type="number" id="cnpj" name="cnpj" placeholder="Digite Seu CNPJ:">
+      </div>
+
+      <div class="input-group">
+        <label for="">Cep</label>
+      <input type="text" id="cep" placeholder="Digite seu CEP">
+      <script>
+        const cep = document.getElementById('cep');
+      
+        cep.addEventListener('blur', () => {
+          const cepValue = cep.value.replace(/\D/g, '');
+          
+          if (cepValue.length === 8) {
+            const url = `https://viacep.com.br/ws/${cepValue}/json/`;
+            
+            fetch(url)
+              .then(response => response.json())
+              .then(data => {
+                if (data.erro) {
+                  throw new Error('CEP não encontrado');
+                }
+      
+                document.getElementById('logradouro').value = data.logradouro;
+                document.getElementById('bairro').value = data.bairro;
+                document.getElementById('cidade').value = data.localidade;
+                document.getElementById('estado').value = data.uf;
+              })
+              .catch(error => {
+                console.log(error.message);
+              });
+          }
+        });
+      </script>
+      </div>
+      
+
+      <div class="input-group">
+      <label for="">Estado:</label>
+      <input type="text" id="estado" name="estado" >
+      </div>
+      
+      <div class="input-group">
+      <label for="">cidade:</label>
+      <input type="text" id="cidade" name="cidade" >
+      </div>
+
+      <div class="input-group">
+      <label for="">logradouro:</label>
+      <input type="text" id="logradouro" name="logradouro" >
+      </div>
+
+      <div class="input-group">
+      <label for="">bairro:</label>
+      <input type="text" id="bairro" name="bairro">
+      </div>
+
+      <div class="input-group">
+      <label for="">numero:</label>
+      <input type="number" id="numero" name="numero">
+      </div>
+
+      <div class="input-group">
+      <button>Cadastrar</button>
+      </div>
+
+
+    </form>
+    </div>
+   </div>
+
+
+
+
+
+
+
+
+    
+    
+</body>
+</html>
